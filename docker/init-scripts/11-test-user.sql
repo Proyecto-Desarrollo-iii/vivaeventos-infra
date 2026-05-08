@@ -2,12 +2,15 @@
 -- Usuario de prueba para verificar login
 -- ============================================
 
-INSERT INTO users (email, password_hash, full_name, role, phone, is_active)
+\c vivaeventos_auth;
+
+INSERT INTO users (email, password_hash, full_name, role, phone_prefix, phone, is_active)
 VALUES (
     'test@example.com',
     '$2a$10$8K1p/a0dR1.xhyMhOEI5YOJ4bCrKq2pXGq7q7q7q7q7q7q7q7q7q',  -- password: test1234
     'Usuario Prueba',
     'CLIENT',
+    '+57',
     '3001234567',
     true
 )

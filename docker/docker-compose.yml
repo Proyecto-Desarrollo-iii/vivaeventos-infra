@@ -17,5 +17,33 @@ services:
       timeout: 5s
       retries: 5
 
+  auth:
+    build:
+      context: ../../vivaeventos-auth
+      dockerfile: Dockerfile
+    container_name: vivaeventos-auth
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/vivaeventos_auth
+      SPRING_DATASOURCE_USERNAME: devdb
+      SPRING_DATASOURCE_PASSWORD: a1b2c3d4
+      JWT_SECRET: dGhpc0lzQVZlcnlTZWNyZXRLZXlGb3JWYWlhRXZlbnRvc1RoYXROZWVkczUw
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  gateway:
+    build:
+      context: ../../vivaeventos-gateway
+      dockerfile: Dockerfile
+    container_name: vivaeventos-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      JWT_SECRET: dGhpc0lzQVZlcnlTZWNyZXRLZXlGb3JWYWlhRXZlbnRvc1RoYXROZWVkczUw
+    depends_on:
+      - auth
+
 volumes:
   postgres_data:
