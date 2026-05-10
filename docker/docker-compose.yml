@@ -43,8 +43,25 @@ services:
     environment:
       JWT_SECRET: dGhpc0lzQVZlcnlTZWNyZXRLZXlGb3JWYWlhRXZlbnRvc1RoYXROZWVkczUw
       AUTH_URI: http://auth:8083
+      EVENTS_URI: http://events:8081
     depends_on:
       - auth
+
+  events:
+    build:
+      context: ../../vivaeventos-events
+      dockerfile: Dockerfile
+    container_name: vivaeventos-events
+    ports:
+      - "8084:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/vivaeventos_events
+      SPRING_DATASOURCE_USERNAME: devdb
+      SPRING_DATASOURCE_PASSWORD: a1b2c3d4
+      JWT_SECRET: dGhpc0lzQVZlcnlTZWNyZXRLZXlGb3JWYWlhRXZlbnRvc1RoYXROZWVkczUw
+    depends_on:
+      postgres:
+        condition: service_healthy
 
 volumes:
   postgres_data:
