@@ -1,4 +1,5 @@
 services:
+# Para cada servicio, se define su imagen, puertos, variables de entorno y dependencias.
   postgres:
     image: postgres:16-alpine
     container_name: vivaeventos-postgres
