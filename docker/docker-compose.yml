@@ -48,6 +48,7 @@ services:
       TICKETS_URI: http://tickets:8085
       ORDERS_URI: http://orders:8083
       PAYMENTS_URI: http://payments:8084
+      CHECKIN_URI: http://tickets:8085
     depends_on:
       - auth
 
