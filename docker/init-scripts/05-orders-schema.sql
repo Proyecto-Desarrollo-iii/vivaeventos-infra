@@ -24,7 +24,10 @@ CREATE TABLE IF NOT EXISTS orders (
 CREATE TABLE IF NOT EXISTS order_items (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     order_id UUID NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
+    event_id UUID,
+    event_name VARCHAR(255),
     ticket_type_id UUID NOT NULL,
+    ticket_type_name VARCHAR(255),
     quantity INT NOT NULL,
     unit_price DECIMAL(10,2) NOT NULL,
     subtotal DECIMAL(10,2) NOT NULL
@@ -43,6 +46,7 @@ CREATE TABLE IF NOT EXISTS promo_codes (
     starts_at TIMESTAMP DEFAULT NOW(),
     expires_at TIMESTAMP,
     is_active BOOLEAN DEFAULT TRUE,
+    version BIGINT DEFAULT 0,
     created_at TIMESTAMP DEFAULT NOW()
 );
 
