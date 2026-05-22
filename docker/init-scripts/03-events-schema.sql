@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS events (
     spotify_url TEXT,
     instagram_url TEXT,
     twitter_url TEXT,
+    social_links TEXT,
     is_published BOOLEAN DEFAULT FALSE,
     is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT NOW(),

@@ -48,7 +48,10 @@ services:
       TICKETS_URI: http://tickets:8085
       ORDERS_URI: http://orders:8083
       PAYMENTS_URI: http://payments:8084
-      CHECKIN_URI: http://tickets:8085
+      CHECKIN_URI: http://checkin:8086
+      NOTIFICATIONS_URI: http://notifications:8087
+      ANALYTICS_URI: http://analytics:8088
+      AUDIT_URI: http://audit:8089
     depends_on:
       - auth
 
@@ -114,8 +117,8 @@ services:
       JWT_SECRET: dGhpc0lzQVZlcnlTZWNyZXRLZXlGb3JWYWlhRXZlbnRvc1RoYXROZWVkczUw
       STRIPE_API_KEY: sk_test_51TXTrGJ2Lp92DHPeUZQVB73EFdSfoDXjtMIrToHpNESQqbZe9WYe9gO5aPdst5DTZ0Tc9Pkc7kbslyik1ELBaT8r00WDAmnfet
       STRIPE_WEBHOOK_SECRET: whsec_fb27781edd9ec8bf270c3664a7a4481fd6c1e36b402c16e2910600bae758c1a
-      SERVICES_ORDERS_URL: http://orders:8083
-      SERVICES_TICKETS_URL: http://tickets:8085
+      ORDERS_SERVICE_URL: http://orders:8083
+      TICKETS_SERVICE_URL: http://tickets:8085
       PAYMENT_TIMEOUT_MINUTES: 15
       MANAGEMENT_SERVER_PORT: 8087
     depends_on:
