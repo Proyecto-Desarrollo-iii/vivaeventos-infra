@@ -8,7 +8,7 @@ services:
       POSTGRES_PASSWORD: a1b2c3d4
       POSTGRES_DB: postgres
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init-scripts:/docker-entrypoint-initdb.d
@@ -24,7 +24,7 @@ services:
       dockerfile: Dockerfile
     container_name: vivaeventos-auth
     ports:
-      - "8083:8083"
+      - "8088:8083"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/vivaeventos_auth
       SPRING_DATASOURCE_USERNAME: devdb
@@ -40,7 +40,7 @@ services:
       dockerfile: Dockerfile
     container_name: vivaeventos-gateway
     ports:
-      - "8080:8080"
+      - "8090:8080"
     environment:
       JWT_SECRET: dGhpc0lzQVZlcnlTZWNyZXRLZXlGb3JWYWlhRXZlbnRvc1RoYXROZWVkczUw
       AUTH_URI: http://auth:8083
@@ -61,7 +61,7 @@ services:
       dockerfile: Dockerfile
     container_name: vivaeventos-events
     ports:
-      - "8084:8081"
+      - "8094:8081"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/vivaeventos_events
       SPRING_DATASOURCE_USERNAME: devdb
@@ -77,7 +77,7 @@ services:
       dockerfile: Dockerfile
     container_name: vivaeventos-tickets
     ports:
-      - "8085:8085"
+      - "8095:8085"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/vivaeventos_tickets
       SPRING_DATASOURCE_USERNAME: devdb
@@ -99,7 +99,7 @@ services:
       dockerfile: Dockerfile
     container_name: vivaeventos-orders
     ports:
-      - "8087:8083"
+      - "8097:8083"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/vivaeventos_orders
       SPRING_DATASOURCE_USERNAME: devdb
@@ -115,7 +115,7 @@ services:
       dockerfile: Dockerfile
     container_name: vivaeventos-payments
     ports:
-      - "8086:8084"
+      - "8096:8084"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/vivaeventos_payments
       SPRING_DATASOURCE_USERNAME: devdb
@@ -137,7 +137,7 @@ services:
       dockerfile: Dockerfile
     container_name: vivaeventos-checkin
     ports:
-      - "8088:8086"
+      - "8091:8086"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/vivaeventos_checkin
       SPRING_DATASOURCE_USERNAME: devdb
