@@ -156,5 +156,22 @@ services:
       tickets:
         condition: service_healthy
 
+  notifications:
+    build:
+      context: ../../vivaeventos-notifications
+      dockerfile: Dockerfile
+    container_name: vivaeventos-notifications
+    ports:
+      - "8098:8087"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/vivaeventos_notifications
+      SPRING_DATASOURCE_USERNAME: devdb
+      SPRING_DATASOURCE_PASSWORD: a1b2c3d4
+      JWT_SECRET: dGhpc0lzQVZlcnlTZWNyZXRLZXlGb3JWYWlhRXZlbnRvc1RoYXROZWVkczUw
+      SERVER_PORT: 8087
+    depends_on:
+      postgres:
+        condition: service_healthy
+
 volumes:
   postgres_data:
