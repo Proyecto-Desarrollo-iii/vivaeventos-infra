@@ -128,6 +128,7 @@ services:
       ORDERS_SERVICE_URL: http://orders:8083
       TICKETS_SERVICE_URL: http://tickets:8085
       SERVICES_NOTIFICATIONS_URL: http://notifications:8087
+      SERVICES_EVENTS_URL: http://events:8081
       PAYMENT_TIMEOUT_MINUTES: 15
       MANAGEMENT_SERVER_PORT: 8087
     depends_on:
