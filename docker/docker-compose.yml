@@ -67,6 +67,8 @@ services:
       SPRING_DATASOURCE_USERNAME: devdb
       SPRING_DATASOURCE_PASSWORD: a1b2c3d4
       JWT_SECRET: dGhpc0lzQVZlcnlTZWNyZXRLZXlGb3JWYWlhRXZlbnRvc1RoYXROZWVkczUw
+      SERVICES_TICKETS_URL: http://tickets:8085
+      SERVICES_NOTIFICATIONS_URL: http://notifications:8087
     depends_on:
       postgres:
         condition: service_healthy
@@ -125,6 +127,7 @@ services:
       STRIPE_WEBHOOK_SECRET: whsec_fb27781edd9ec8bf270c3664a7a4481fd6c1e36b402c16e2910600bae758c1a
       ORDERS_SERVICE_URL: http://orders:8083
       TICKETS_SERVICE_URL: http://tickets:8085
+      SERVICES_NOTIFICATIONS_URL: http://notifications:8087
       PAYMENT_TIMEOUT_MINUTES: 15
       MANAGEMENT_SERVER_PORT: 8087
     depends_on:
@@ -169,6 +172,8 @@ services:
       SPRING_DATASOURCE_PASSWORD: a1b2c3d4
       JWT_SECRET: dGhpc0lzQVZlcnlTZWNyZXRLZXlGb3JWYWlhRXZlbnRvc1RoYXROZWVkczUw
       SERVER_PORT: 8087
+      SERVICES_EVENTS_URL: http://events:8081
+      SERVICES_TICKETS_URL: http://tickets:8085
     depends_on:
       postgres:
         condition: service_healthy
