@@ -63,6 +63,7 @@ services:
     ports:
       - "8094:8081"
     environment:
+      TZ: America/Bogota
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/vivaeventos_events
       SPRING_DATASOURCE_USERNAME: devdb
       SPRING_DATASOURCE_PASSWORD: a1b2c3d4
