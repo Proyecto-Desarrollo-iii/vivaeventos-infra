@@ -16,9 +16,9 @@ Equipo VivaEventos',
  ARRAY['nombre', 'evento', 'fecha', 'hora', 'lugar', 'codigo_qr'],
  TRUE),
 
-('CHANGE_EMAIL', 'Cambios en evento', 'EMAIL',
- 'Cambios en {{evento}}',
- 'Hola {{nombre}},
+ ('CHANGE_EMAIL', 'Cambios en evento', 'EMAIL',
+  'Cambios en {{evento}}',
+  'Hola {{nombre}},
 
 El evento "{{evento}}" ha sido modificado.
 
@@ -30,5 +30,36 @@ Nuevo lugar: {{nuevo_lugar}}
 Saludos,
 Equipo VivaEventos',
  ARRAY['nombre', 'evento', 'detalle_cambio', 'nueva_fecha', 'nuevo_lugar'],
+ TRUE),
+
+('CANCELLATION_EMAIL', 'Cancelación de evento', 'EMAIL',
+ 'Evento cancelado: {{evento}}',
+ 'Hola {{nombre}},
+
+El evento "{{evento}}" del {{fecha}} ha sido cancelado.
+
+{{motivo}}
+
+Si realizaste una compra por ${{total}}, el reembolso será procesado automáticamente.
+
+Saludos,
+Equipo VivaEventos',
+ ARRAY['nombre', 'evento', 'fecha', 'motivo', 'total'],
+ TRUE),
+
+('PROMOTION_EMAIL', 'Oferta especial para ti', 'EMAIL',
+ 'Oferta especial: {{descuento}} en {{evento}}',
+ 'Hola {{nombre}},
+
+Gracias por tu compra en "{{evento}}". Como agradecimiento, te ofrecemos un {{descuento}} en tu próxima compra.
+
+Usa el código: {{codigo_promocion}}
+Válido hasta: {{fecha_expiracion}}
+
+¡No dejes pasar esta oportunidad!
+
+Saludos,
+Equipo VivaEventos',
+ ARRAY['nombre', 'evento', 'descuento', 'codigo_promocion', 'fecha_expiracion'],
  TRUE)
 ON CONFLICT (code) DO NOTHING;
