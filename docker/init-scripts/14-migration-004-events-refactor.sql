@@ -4,8 +4,16 @@
 \c vivaeventos_events;
 
 -- Agregar columnas nuevas a events
+-- Agregar columnas nuevas a events de manera segura para entornos limpios
 ALTER TABLE events ADD COLUMN IF NOT EXISTS event_date_time TIMESTAMP;
-UPDATE events SET event_date_time = event_date WHERE event_date_time IS NULL;
+
+DO $$
+BEGIN
+    IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='events' AND column_name='event_date') THEN
+        UPDATE events SET event_date_time = event_date WHERE event_date_time IS NULL;
+    END IF;
+END $$;
+
 ALTER TABLE events ALTER COLUMN event_date_time SET NOT NULL;
 
 ALTER TABLE events ADD COLUMN IF NOT EXISTS thumbnail_url TEXT;

@@ -5,6 +5,9 @@
 -- ============================================================
 
 -- 1. Payment: nuevas columnas + índices únicos parciales
+
+\c vivaeventos_payments;
+
 ALTER TABLE payments ADD COLUMN IF NOT EXISTS idempotency_key VARCHAR(255);
 ALTER TABLE payments ADD COLUMN IF NOT EXISTS version BIGINT DEFAULT 0;
 ALTER TABLE payments ADD COLUMN IF NOT EXISTS refund_idempotency_key VARCHAR(255);
