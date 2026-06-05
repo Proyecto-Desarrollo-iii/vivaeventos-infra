@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS payments (
     payment_method VARCHAR(50) NOT NULL,
     payment_provider VARCHAR(50) DEFAULT 'INTERNAL',
     provider_reference VARCHAR(255),
-    status VARCHAR(50) DEFAULT 'PENDING' CHECK (status IN ('PENDING', 'PROCESSING', 'APPROVED', 'DECLINED', 'FAILED', 'REFUNDED', 'CANCELLED')),
+    status VARCHAR(50) DEFAULT 'PENDING' CHECK (status IN ('PENDING', 'PROCESSING', 'APPROVED', 'DECLINED', 'FAILED', 'TIMEOUT', 'REFUNDED', 'CANCELLED', 'PAID')),
     failure_reason VARCHAR(255),
     processor_response TEXT,
     callback_received_at TIMESTAMP,
