@@ -19,6 +19,7 @@ services:
       retries: 5
 
   auth:
+    image: ghcr.io/proyecto-desarrollo-iii/vivaeventos-auth:main
     build:
       context: ../../vivaeventos-auth
       dockerfile: Dockerfile
@@ -35,6 +36,7 @@ services:
         condition: service_healthy
 
   gateway:
+    image: ghcr.io/proyecto-desarrollo-iii/vivaeventos-gateway:main
     build:
       context: ../../vivaeventos-gateway
       dockerfile: Dockerfile
@@ -56,6 +58,7 @@ services:
       - auth
 
   events:
+    image: ghcr.io/proyecto-desarrollo-iii/vivaeventos-events:main
     build:
       context: ../../vivaeventos-events
       dockerfile: Dockerfile
@@ -75,6 +78,7 @@ services:
         condition: service_healthy
 
   tickets:
+    image: ghcr.io/proyecto-desarrollo-iii/vivaeventos-tickets:main
     build:
       context: ../../vivaeventos-tickets
       dockerfile: Dockerfile
@@ -97,6 +101,7 @@ services:
         condition: service_healthy
 
   orders:
+    image: ghcr.io/proyecto-desarrollo-iii/vivaeventos-orders:main
     build:
       context: ../../vivaeventos-orders
       dockerfile: Dockerfile
@@ -113,6 +118,7 @@ services:
         condition: service_healthy
 
   payments:
+    image: ghcr.io/proyecto-desarrollo-iii/vivaeventos-payments:main
     build:
       context: ../../vivaeventos-payments
       dockerfile: Dockerfile
@@ -137,6 +143,7 @@ services:
         condition: service_healthy
 
   checkin:
+    image: ghcr.io/proyecto-desarrollo-iii/vivaeventos-checkin:main
     build:
       context: ../../vivaeventos-checkin
       dockerfile: Dockerfile
@@ -162,6 +169,7 @@ services:
         condition: service_healthy
 
   notifications:
+    image: ghcr.io/proyecto-desarrollo-iii/vivaeventos-notifications:main
     build:
       context: ../../vivaeventos-notifications
       dockerfile: Dockerfile
@@ -179,6 +187,25 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+
+  # Watchtower — actualiza automáticamente los contenedores cuando hay nuevas imágenes en GHCR
+  # Para activarlo: docker compose up watchtower -d
+  # Requiere haber ejecutado setup-ghcr.ps1 primero (sesión en ghcr.io)
+  watchtower:
+    image: containrrr/watchtower:latest
+    container_name: vivaeventos-watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ~/.docker/config.json:/config.json:ro
+    environment:
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_POLL_INTERVAL=300
+      - WATCHTOWER_INCLUDE_RESTARTING=true
+      - WATCHTOWER_LABEL_ENABLE=false
+    command: --interval 300
+    profiles:
+      - auto-update
+    restart: unless-stopped
 
 volumes:
   postgres_data:
