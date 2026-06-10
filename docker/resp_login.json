@@ -1,0 +1,30 @@
+{
+  "mensaje" : "Login exitoso",
+  "user" : {
+    "phonePrefix" : "+57",
+    "country" : "CO",
+    "role" : "CLIENT",
+    "phone" : "3001234567",
+    "documentType" : "CC",
+    "documentNumber" : "100200300",
+    "fullName" : "Trace Demo",
+    "id" : "55641b07-4951-4c7b-8e63-c46e8c873468",
+    "birthDate" : "1995-05-05",
+    "email" : "trace.demo@vivaeventos.co"
+  },
+  "token" : {
+    "token" : "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQ0xJRU5UIiwic3ViIjoidHJhY2UuZGVtb0B2aXZhZXZlbnRvcy5jbyIsImlhdCI6MTc4MTA1MTA5NywiZXhwIjoxNzgxMTM3NDk3fQ.xtbxT_7hCj0DO-uiHZK1dkg3BmUgaLPal4ezIqT2tZU",
+    "type" : "Bearer",
+    "userId" : "55641b07-4951-4c7b-8e63-c46e8c873468",
+    "email" : "trace.demo@vivaeventos.co",
+    "fullName" : "Trace Demo",
+    "role" : "CLIENT",
+    "phonePrefix" : "+57",
+    "phone" : "3001234567",
+    "documentType" : "CC",
+    "documentNumber" : "100200300",
+    "country" : "CO",
+    "birthDate" : "1995-05-05",
+    "twoFactorEnabled" : false
+  }
+}

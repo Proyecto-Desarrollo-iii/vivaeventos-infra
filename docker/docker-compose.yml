@@ -18,6 +18,18 @@ services:
       timeout: 5s
       retries: 5
 
+  # Zipkin — almacenamiento + dashboard de trazas distribuidas (UI en http://localhost:9411)
+  zipkin:
+    image: openzipkin/zipkin:latest
+    container_name: vivaeventos-zipkin
+    ports:
+      - "9411:9411"
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:9411/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
   auth:
     image: ghcr.io/proyecto-desarrollo-iii/vivaeventos-auth:main
     build:
@@ -28,12 +40,15 @@ services:
       - "8088:8083"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/vivaeventos_auth
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipkin:9411/api/v2/spans
       SPRING_DATASOURCE_USERNAME: devdb
       SPRING_DATASOURCE_PASSWORD: a1b2c3d4
       JWT_SECRET: dGhpc0lzQVZlcnlTZWNyZXRLZXlGb3JWYWlhRXZlbnRvc1RoYXROZWVkczUw
     depends_on:
       postgres:
         condition: service_healthy
+      zipkin:
+        condition: service_started
 
   gateway:
     image: ghcr.io/proyecto-desarrollo-iii/vivaeventos-gateway:main
@@ -45,6 +60,7 @@ services:
       - "8090:8080"
     environment:
       JWT_SECRET: dGhpc0lzQVZlcnlTZWNyZXRLZXlGb3JWYWlhRXZlbnRvc1RoYXROZWVkczUw
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipkin:9411/api/v2/spans
       AUTH_URI: http://auth:8083
       EVENTS_URI: http://events:8081
       TICKETS_URI: http://tickets:8085
@@ -56,6 +72,7 @@ services:
       AUDIT_URI: http://audit:8089
     depends_on:
       - auth
+      - zipkin
 
   events:
     image: ghcr.io/proyecto-desarrollo-iii/vivaeventos-events:main
@@ -68,6 +85,7 @@ services:
     environment:
       TZ: America/Bogota
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/vivaeventos_events
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipkin:9411/api/v2/spans
       SPRING_DATASOURCE_USERNAME: devdb
       SPRING_DATASOURCE_PASSWORD: a1b2c3d4
       JWT_SECRET: dGhpc0lzQVZlcnlTZWNyZXRLZXlGb3JWYWlhRXZlbnRvc1RoYXROZWVkczUw
@@ -76,6 +94,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      zipkin:
+        condition: service_started
 
   tickets:
     image: ghcr.io/proyecto-desarrollo-iii/vivaeventos-tickets:main
@@ -87,6 +107,7 @@ services:
       - "8095:8085"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/vivaeventos_tickets
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipkin:9411/api/v2/spans
       SPRING_DATASOURCE_USERNAME: devdb
       SPRING_DATASOURCE_PASSWORD: a1b2c3d4
       JWT_SECRET: dGhpc0lzQVZlcnlTZWNyZXRLZXlGb3JWYWlhRXZlbnRvc1RoYXROZWVkczUw
@@ -99,6 +120,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      zipkin:
+        condition: service_started
 
   orders:
     image: ghcr.io/proyecto-desarrollo-iii/vivaeventos-orders:main
@@ -110,12 +133,15 @@ services:
       - "8097:8083"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/vivaeventos_orders
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipkin:9411/api/v2/spans
       SPRING_DATASOURCE_USERNAME: devdb
       SPRING_DATASOURCE_PASSWORD: a1b2c3d4
       JWT_SECRET: dGhpc0lzQVZlcnlTZWNyZXRLZXlGb3JWYWlhRXZlbnRvc1RoYXROZWVkczUw
     depends_on:
       postgres:
         condition: service_healthy
+      zipkin:
+        condition: service_started
 
   payments:
     image: ghcr.io/proyecto-desarrollo-iii/vivaeventos-payments:main
@@ -127,6 +153,7 @@ services:
       - "8096:8084"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/vivaeventos_payments
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipkin:9411/api/v2/spans
       SPRING_DATASOURCE_USERNAME: devdb
       SPRING_DATASOURCE_PASSWORD: a1b2c3d4
       JWT_SECRET: dGhpc0lzQVZlcnlTZWNyZXRLZXlGb3JWYWlhRXZlbnRvc1RoYXROZWVkczUw
@@ -141,6 +168,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      zipkin:
+        condition: service_started
 
   checkin:
     image: ghcr.io/proyecto-desarrollo-iii/vivaeventos-checkin:main
@@ -152,6 +181,7 @@ services:
       - "8091:8086"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/vivaeventos_checkin
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipkin:9411/api/v2/spans
       SPRING_DATASOURCE_USERNAME: devdb
       SPRING_DATASOURCE_PASSWORD: a1b2c3d4
       JWT_SECRET: dGhpc0lzQVZlcnlTZWNyZXRLZXlGb3JWYWlhRXZlbnRvc1RoYXROZWVkczUw
@@ -167,6 +197,8 @@ services:
         condition: service_healthy
       tickets:
         condition: service_healthy
+      zipkin:
+        condition: service_started
 
   notifications:
     image: ghcr.io/proyecto-desarrollo-iii/vivaeventos-notifications:main
@@ -178,6 +210,7 @@ services:
       - "8098:8087"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/vivaeventos_notifications
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipkin:9411/api/v2/spans
       SPRING_DATASOURCE_USERNAME: devdb
       SPRING_DATASOURCE_PASSWORD: a1b2c3d4
       JWT_SECRET: dGhpc0lzQVZlcnlTZWNyZXRLZXlGb3JWYWlhRXZlbnRvc1RoYXROZWVkczUw
@@ -187,6 +220,48 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      zipkin:
+        condition: service_started
+
+  audit:
+    image: ghcr.io/proyecto-desarrollo-iii/vivaeventos-audit:main
+    build:
+      context: ../../vivaeventos-audit
+      dockerfile: Dockerfile
+    container_name: vivaeventos-audit
+    ports:
+      - "8089:8089"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/vivaeventos_audit
+      SPRING_DATASOURCE_USERNAME: devdb
+      SPRING_DATASOURCE_PASSWORD: a1b2c3d4
+      JWT_SECRET: dGhpc0lzQVZlcnlTZWNyZXRLZXlGb3JWYWlhRXZlbnRvc1RoYXROZWVkczUw
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipkin:9411/api/v2/spans
+    depends_on:
+      postgres:
+        condition: service_healthy
+      zipkin:
+        condition: service_started
+
+  analytics:
+    image: ghcr.io/proyecto-desarrollo-iii/vivaeventos-analytics:main
+    build:
+      context: ../../vivaeventos-analytics
+      dockerfile: Dockerfile
+    container_name: vivaeventos-analytics
+    ports:
+      - "8100:8099"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/vivaeventos_analytics
+      SPRING_DATASOURCE_USERNAME: devdb
+      SPRING_DATASOURCE_PASSWORD: a1b2c3d4
+      JWT_SECRET: dGhpc0lzQVZlcnlTZWNyZXRLZXlGb3JWYWlhRXZlbnRvc1RoYXROZWVkczUw
+      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipkin:9411/api/v2/spans
+    depends_on:
+      postgres:
+        condition: service_healthy
+      zipkin:
+        condition: service_started
 
   # Watchtower — actualiza automáticamente los contenedores cuando hay nuevas imágenes en GHCR
   # Para activarlo: docker compose up watchtower -d

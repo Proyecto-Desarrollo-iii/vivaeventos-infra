@@ -1,0 +1,44 @@
+{
+  "usuario" : {
+    "id" : "55641b07-4951-4c7b-8e63-c46e8c873468",
+    "email" : "trace.demo@vivaeventos.co",
+    "fullName" : "Trace Demo",
+    "role" : "CLIENT",
+    "phonePrefix" : "+57",
+    "phone" : "3001234567",
+    "documentType" : "CC",
+    "documentNumber" : "100200300",
+    "country" : "CO",
+    "birthDate" : "1995-05-05",
+    "twoFactorSecret" : null,
+    "twoFactorEnabled" : false,
+    "twoFactorMethod" : null,
+    "isActive" : true,
+    "createdAt" : "2026-06-10T00:24:52.25861834",
+    "updatedAt" : "2026-06-10T00:24:52.258635099",
+    "authorities" : [ {
+      "authority" : "ROLE_CLIENT"
+    } ],
+    "accountNonExpired" : true,
+    "accountNonLocked" : true,
+    "credentialsNonExpired" : true,
+    "username" : "trace.demo@vivaeventos.co",
+    "enabled" : true
+  },
+  "mensaje" : "Usuario registrado con exito",
+  "token" : {
+    "token" : "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQ0xJRU5UIiwic3ViIjoidHJhY2UuZGVtb0B2aXZhZXZlbnRvcy5jbyIsImlhdCI6MTc4MTA1MTA5NywiZXhwIjoxNzgxMTM3NDk3fQ.xtbxT_7hCj0DO-uiHZK1dkg3BmUgaLPal4ezIqT2tZU",
+    "type" : "Bearer",
+    "userId" : "55641b07-4951-4c7b-8e63-c46e8c873468",
+    "email" : "trace.demo@vivaeventos.co",
+    "fullName" : "Trace Demo",
+    "role" : "CLIENT",
+    "phonePrefix" : "+57",
+    "phone" : "3001234567",
+    "documentType" : "CC",
+    "documentNumber" : "100200300",
+    "country" : "CO",
+    "birthDate" : "1995-05-05",
+    "twoFactorEnabled" : false
+  }
+}
